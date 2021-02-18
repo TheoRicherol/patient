@@ -20,6 +20,7 @@ require "../controller/listePatientController.php";
         <form action="" method="post">
             <input type="text" name="search" id="">
             <button type="submit" name="goSearch" class="btn btn-outline-primary">search</button>
+            <button type="submit" name="ereaseSearch" class="btn btn-outline-danger">retour</button>
         </form>
         <table class="table">
             <th>Prénom</th>
@@ -45,6 +46,19 @@ require "../controller/listePatientController.php";
         <a href="../index.php" class="btn btn-primary">Acceuil</a>
         <a href="../view/ajoutPatient.php" class="btn btn-primary">Ajouter Patient</a>
         <center>
+            <form action="" method="post">
+                <select name="listNbr" id="">
+                    <?php
+                    foreach ($listChoice as $value) {
+                    ?>
+                        <option value="<?= $value ?>" <?= isset($_SESSION["listNbr"]) && $_SESSION["listNbr"] == $value  ? "selected='selected'" : "" ?>><?= $value ?></option>
+                    <?php
+                    }
+
+                    ?>
+                </select>
+                <button type="submit">Go</button>
+            </form>
             <nav>
                 <?php
                 if (isset($patientNbr)) {

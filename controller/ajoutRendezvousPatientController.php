@@ -86,5 +86,6 @@ if (isset($_POST) && !empty($_POST)) {
 
     if (isset($year) && !empty($year) && isset($idPatient) && !empty($idPatient)) {
         $appointment->createAppointment($dateHour, $idPatient["idPatient"]);
+        header("Location: listeRendezVous.php");
     }
 }

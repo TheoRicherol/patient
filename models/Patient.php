@@ -244,13 +244,27 @@ class Patient extends Database
         return $buildQuery->execute();
     }
 
-    public function searchPatient($search ,$currentPage, $listNbr)
+    public function searchPatient($search, $currentPage, $listNbr)
     {
-        $query = "SELECT * FROM patients WHERE CONCAT(`patients`.`id` , `patients`.`lastname` , `patients`.`firstname` , `patients`.`phone` , `patients`.`mail`)  LIKE :search LIMIT :currentPage , :listNbr";
+        $query = "SELECT * FROM patients WHERE CONCAT(`patients`.`id` , `patients`.`lastname` , `patients`.`firstname` , `patients`.`phone` , `patients`.`mail`)  LIKE :search  LIMIT :currentPage , :listNbr";
         $buildQuery = parent::getDb()->prepare($query);
         $buildQuery->bindValue("search", $search, PDO::PARAM_STR);
         $buildQuery->bindValue("currentPage", $currentPage, PDO::PARAM_INT);
         $buildQuery->bindValue("listNbr", $listNbr, PDO::PARAM_INT);
+        $buildQuery->execute();
+        $resultQuery = $buildQuery->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($resultQuery)) {
+            return $resultQuery;
+        } else {
+            return false;
+        }
+    }
+
+    public function countSearchPatient($search)
+    {
+        $query = "SELECT COUNT(*) AS 'nbr' FROM patients WHERE CONCAT(`patients`.`id` , `patients`.`lastname` , `patients`.`firstname` , `patients`.`phone` , `patients`.`mail`)  LIKE :search";
+        $buildQuery = parent::getDb()->prepare($query);
+        $buildQuery->bindValue("search", $search, PDO::PARAM_STR);
         $buildQuery->execute();
         $resultQuery = $buildQuery->fetchAll(PDO::FETCH_ASSOC);
         if (!empty($resultQuery)) {
