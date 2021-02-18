@@ -8,21 +8,40 @@ $appointment = new Rendezvous();
 
 $patientList = $patient->getPatiens();
 
-var_dump($_POST);
-
-if(isset($_POST) && !empty($_POST) ){
-    if(isset($_POST["dateHour"])){
-        $dateHour = $_POST["dateHour"];
+if (isset($_POST) && !empty($_POST)) {
+    if (isset($_POST["hour"])) {
+        $hour = $_POST["hour"];
     }
 
-    if(isset($_POST["idPatient"]) && !empty($_POST["idPatient"])){
+    if (isset($_POST["minutes"])) {
+        $minutes = $_POST["minutes"];
+    }
+
+    if (isset($_POST["day"])) {
+        $day = $_POST["day"];
+    }
+
+    if (isset($_POST["month"])) {
+        $month = $_POST["month"];
+    }
+
+    if (isset($_POST["year"])) {
+        $year = $_POST["year"];
+    }
+
+    if(isset($hour) && isset($minutes) &&isset($day) && isset($month) &&isset($year)){
+        $dateHour = $year.$month.$day." ".$hour.$minutes."00";
+    }
+    
+
+    if (isset($_POST["idPatient"]) && !empty($_POST["idPatient"])) {
         $idPatient = $_POST["idPatient"];
     }
 
-    if(isset($dateHour) && !empty($dateHour) && isset($idPatient) && !empty($idPatient)){
-        $appointment->createAppointment($dateHour , $idPatient);
+    var_dump($dateHour);
+
+    if (isset($year) && !empty($year) && isset($idPatient) && !empty($idPatient)) {
+        $appointment->createAppointment($dateHour, $idPatient);
+        header("Location: listeRendezVous.php");
     }
-
 }
-
-?>

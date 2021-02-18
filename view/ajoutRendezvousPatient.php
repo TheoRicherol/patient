@@ -1,7 +1,6 @@
 <?php
-require "../controller/ajoutRendezVousController.php";
+require "../controller/ajoutRendezvousPatientController.php"
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,12 +8,25 @@ require "../controller/ajoutRendezVousController.php";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <title>Document</title>
 </head>
 
 <body>
-    <div class="container">
+    <form action="" method="post">
+        <label for="firstname">Prénom : </label>
+        <input type="text" name="firstname" id="">
+        <?= isset($_POST) && !empty($_POST) ? $errors['firstname'] : "" ?>
+        <label for="lastname">Nom : </label>
+        <input type="text" name="lastname" id="">
+        <?= isset($_POST) && !empty($_POST) ? $errors['lastname'] : "" ?>
+        <label for="birthdate">Date de naissance : </label>
+        <input type="date" name="birthdate" id="">
+        <?= isset($_POST) && !empty($_POST) ? $errors['birthdate'] : "" ?>
+        <label for="phone">Numéro de Téléphone : </label>
+        <input type="text" name="phone" id="">
+        <label for="mail">Adresse Mail : </label>
+        <input type="text" name="mail" id="">
+        <?= isset($_POST) && !empty($_POST) ? $errors['mail'] : "" ?>
         <form action="" method="post">
             <div class="mb-3">
                 <label for="dateHour" class="form-label">Date et heure de RDV : </label>
@@ -64,23 +76,8 @@ require "../controller/ajoutRendezVousController.php";
                     ?>
                 </select>
             </div>
-            <div class="mb-3">
-                <label for="idPatient" class="form-label">Patient : </label>
-                <select name="idPatient" id="">
-                    <?php
-                    foreach ($patientList as $value) {
-                    ?>
-                        <option value="<?= $value['id'] ?>">
-                            <?= $value['firstname'] . " " . $value['lastname'] ?>
-                        </option>
-                    <?php
-                    }
-                    ?>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Enregistrer</button>
+            <button type="submit">Go</button>
         </form>
-    </div>
 </body>
 
 </html>

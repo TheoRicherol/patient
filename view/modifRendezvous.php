@@ -1,5 +1,5 @@
 <?php
-require "../controller/ajoutRendezVousController.php";
+require "../controller/modifRendezvousController.php";
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +19,6 @@ require "../controller/ajoutRendezVousController.php";
             <div class="mb-3">
                 <label for="dateHour" class="form-label">Date et heure de RDV : </label>
                 <select name="hour" class="custom-select" id="">
-
                     <?php for ($i = 8; $i < 20; $i++) {
                     ?>
                         <option value="<?= str_pad($i, 2, "0", STR_PAD_LEFT) . ":" ?>"><?= str_pad($i, 2, "0", STR_PAD_LEFT) ?></option>
@@ -64,21 +63,24 @@ require "../controller/ajoutRendezVousController.php";
                     ?>
                 </select>
             </div>
+
             <div class="mb-3">
-                <label for="idPatient" class="form-label">Patient : </label>
-                <select name="idPatient" id="">
+                <label for="idPatients" class="form-label">Patient : </label>
+                <select name="idPatients" id="">
                     <?php
                     foreach ($patientList as $value) {
+
                     ?>
                         <option value="<?= $value['id'] ?>">
-                            <?= $value['firstname'] . " " . $value['lastname'] ?>
+                            <?= $value['firstname'] . " " . $value['id'] ?>
                         </option>
                     <?php
                     }
                     ?>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Enregistrer</button>
+            <button type="submit" name="idAppointment" value="<?= $fiche['id'] ?>" class="btn btn-primary">Enregistrer</button>
+            <button type="submit" name="delete" value="<?= $fiche['id'] ?>" class="btn btn-danger">Supprimer</button>
         </form>
     </div>
 </body>

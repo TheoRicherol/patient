@@ -20,7 +20,8 @@ require "../mySQLPatient/controller/indexController.php";
             <a href="view/ajoutPatient.php" class="btn btn-primary col-3 m-3">Créer un patient</a>
             <a href="/view/listePatient.php" class="btn btn-primary col-3 m-3">Liste des patients</a>
             <a href="/view/listeRendezVous.php" class="btn btn-primary col-3 m-3">Liste RDV</a>
-
+            <a href="/view/ajoutRendezvousPatient.php" class="btn btn-primary col-3 m-3">Ajout RDV + Patient</a>
+            
         </div>
     </div>
 

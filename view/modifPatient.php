@@ -18,24 +18,24 @@ require "../controller/modifPatientController.php";
         <form action="" method="post" class="">
             <div class="mb-3">
                 <label for="firstname">Prénom : </label>
-                <input type="text" name="firstname" id="" value="<?= $fiche['firstname'] ?>">
+                <input type="text" name="firstname" id="" value="<?= $fiche[0]['firstname'] ?>">
             </div>
 
             <div class="mb-3">
                 <label for="lastname">Nom : </label>
-                <input type="text" name="lastname" id="" value="<?= $fiche['lastname'] ?>">
+                <input type="text" name="lastname" id="" value="<?= $fiche[0]['lastname'] ?>">
             </div>
             <div class="mb-3">
                 <label for="birthdate">Date de naissance : </label>
-                <input type="date" name="birthdate" id="" value="<?= $fiche['birthdate'] ?>">
+                <input type="date" name="birthdate" id="" value="<?= $fiche[0]['birthdate'] ?>">
             </div>
             <div class="mb-3">
                 <label for="phone">Numéro de Téléphone : </label>
-                <input type="text" name="phone" id="" value="<?= $fiche['phone'] ?>">
+                <input type="text" name="phone" id="" value="<?= $fiche[0]['phone'] ?>">
             </div>
             <div class="mb-3">
                 <label for="mail">Adresse Mail : </label>
-                <input type="text" name="mail" id="" value="<?= $fiche['mail'] ?>">
+                <input type="text" name="mail" id="" value="<?= $fiche[0]['mail'] ?>">
             </div>
             <div class="mb-3">
                 <button class="btn btn-primary" type="submit" name="id" value="<?= $_POST['id'] ?>">Enregistrer</button>

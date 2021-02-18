@@ -75,7 +75,7 @@ class Rendezvous extends Database
 
     public function createAppointment($dateHour, $idPatient)
     {
-        $query = "INSERT INTO `appointments` (`dateHour` , `idPatient`) VALUES (:dateHour , :idPatient)";
+        $query = "INSERT INTO `appointments`(`dateHour` , `idPatients`) VALUES (:dateHour , :idPatient)";
         $createAppointment = parent::getDb()->prepare($query);
         $createAppointment->bindValue("dateHour", $dateHour, PDO::PARAM_STR);
         $createAppointment->bindValue("idPatient", $idPatient, PDO::PARAM_STR);
@@ -84,12 +84,16 @@ class Rendezvous extends Database
 
     public function updateAppointment($dateHour, $idPatient, $id)
     {
-        $query = "UPDATE `appointments` SET `dateHour` = :dateHour ,  `idPatient` = :idPatient where `id` = :id ";
+        $query = "UPDATE `appointments` SET `dateHour` = :dateHour , `idPatients` = :idPatient WHERE `appointments`.`id` = :id";
         $updateAppointment = parent::getDb()->prepare($query);
+        var_dump($query);
+        var_dump($updateAppointment);
         $updateAppointment->bindValue("dateHour", $dateHour, PDO::PARAM_STR);
-        $updateAppointment->bindValue("idPatient", $idPatient, PDO::PARAM_STR);
-        $updateAppointment->bindValue("id", $id, PDO::PARAM_STR);
+        $updateAppointment->bindValue("idPatient", $idPatient, PDO::PARAM_INT);
+        $updateAppointment->bindValue("id", $id, PDO::PARAM_INT);
+        var_dump($updateAppointment);
         return $updateAppointment->execute();
+
     }
 
     public function deleteAppointment($id)
@@ -102,10 +106,26 @@ class Rendezvous extends Database
 
     public function getAgenda()
     {
-        $query = "SELECT * FROM `appointments`";
+        $query = "SELECT `dateHour`, `idPatients` , `appointments`.`id`, `patients`.`lastname` , `patients`.`firstname` , `patients`.`mail` , `patients`.`phone` , `patients`.`birthdate` FROM `appointments`
+            INNER JOIN `patients` ON `patients`.`id` = `appointments`.`idPatients` ";
         $getAgenda = parent::getDb()->prepare($query);
         $getAgenda->execute();
         $resultQuery = $getAgenda->fetchAll(PDO::FETCH_ASSOC);
+        if (!empty($resultQuery)) {
+            return $resultQuery;
+        } else {
+            return false;
+        }
+    }
+
+    public function getAppointment($id)
+    {
+        $query = "SELECT `dateHour`, `idPatients` ,`appointments`.`id`,  `patients`.`lastname` , `patients`.`firstname` , `patients`.`mail` , `patients`.`phone` , `patients`.`birthdate` FROM `appointments`
+            INNER JOIN `patients` ON `patients`.`id` = `appointments`.`idPatients` WHERE `appointments`.`id` = :id ";
+        $getAgenda = parent::getDb()->prepare($query);
+        $getAgenda->bindValue("id" , $id);
+        $getAgenda->execute();
+        $resultQuery = $getAgenda->fetch(PDO::FETCH_ASSOC);
         if (!empty($resultQuery)) {
             return $resultQuery;
         } else {

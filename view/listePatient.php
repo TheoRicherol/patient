@@ -1,10 +1,10 @@
 <?php
 require "../controller/listePatientController.php";
-// var_dump($_POST)
+
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
@@ -15,7 +15,12 @@ require "../controller/listePatientController.php";
 </head>
 
 <body>
+
     <div class="container">
+        <form action="" method="post">
+            <input type="text" name="search" id="">
+            <button type="submit" name="goSearch" class="btn btn-outline-primary">search</button>
+        </form>
         <table class="table">
             <th>Prénom</th>
             <th>Nom</th>
@@ -25,9 +30,9 @@ require "../controller/listePatientController.php";
             foreach ($patientList as $key => $value) {
             ?>
                 <tr>
+                    <td><?= $value['firstname'] ?></td>
+                    <td><?= $value['lastname'] ?></td>
                     <form action="../view/modifPatient.php" method="post">
-                        <td><?= $value['firstname'] ?></td>
-                        <td><?= $value['lastname'] ?></td>
                         <td><a href="<?= "../view/fichePatient.php?id=" . htmlspecialchars($value['id']) ?>" class="btn btn-primary">Plus d'informations</a></td>
                         <td><button type="submit" name="id" value="<?= $value['id'] ?>" class="btn btn-primary">Modifier</button></td>
                     </form>
@@ -37,12 +42,29 @@ require "../controller/listePatientController.php";
             }
             ?>
         </table>
-
         <a href="../index.php" class="btn btn-primary">Acceuil</a>
         <a href="../view/ajoutPatient.php" class="btn btn-primary">Ajouter Patient</a>
-        <a href="../view/listePatient.php" class="btn btn-primary">Liste patients</a>
-    </div>
+        <center>
+            <nav>
+                <?php
+                if (isset($patientNbr)) {
+                    for ($i = 1; $i <= $totalPages; $i++) {
+                        if ($currentPage == $i) {
+                ?>
+                            <span> <?= $i ?> </span>
+                        <?php
+                        } else {
+                        ?>
+                            <a href="?page=<?= $i ?>"> <?= $i ?> </a>
+                <?php
+                        }
+                    }
+                }
 
+                ?>
+            </nav>
+        </center>
+    </div>
 
 </body>
 
